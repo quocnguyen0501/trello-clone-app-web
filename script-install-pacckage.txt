@@ -1,0 +1,5 @@
+install SASS:
+    use npm:
+    npm i node-sass --save
+    or use yarn:
+    yarn add node-sass --save
