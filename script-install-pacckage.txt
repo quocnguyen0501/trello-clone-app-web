@@ -3,3 +3,9 @@ install SASS:
     npm i node-sass --save
     or use yarn:
     yarn add node-sass --save
+
+instal lodash:
+    use npm:
+    npm i lodash --save
+    use yarn:
+    yarn add lodash --save
