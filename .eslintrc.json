@@ -19,7 +19,13 @@
     "rules": {
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        
+        /*
+            If you are using eslint-plugin-react,
+            the react/jsx-uses-react and react/react-in-jsx-scope rules are no longer necessary and can be turned off or removed.
+        */
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+
         "no-unused-vars": 1,
         "no-trailing-spaces": 1,
         "no-multi-spaces": 1,
@@ -31,7 +37,7 @@
         "linebreak-style": 0,
         // Không cho phép ; ở cuối
         // "semi": [1, "never"],
-        "quotes": ["error", "single"],
+        // "quotes": ["error", "single"],
         "no-unexpected-multiline": "warn",
         "react/prop-types": 0,
         "react/display-name": 0,

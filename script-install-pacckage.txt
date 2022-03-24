@@ -21,3 +21,9 @@ install ESLint:
         npm i eslint-plugin-react-hooks --dev
 
     Sau đó cấu hình 2 file .eslintignore .eslintrc.json
+
+install react-smooth-dnd:
+    use yarn: 
+        yarn add react-smooth-dnd --save
+    use npm:
+        npm i react-smooth-dnd --save
