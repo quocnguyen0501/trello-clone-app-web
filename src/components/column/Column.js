@@ -7,11 +7,10 @@ import { mapOrder } from 'utilities/Sorts';
 
 const Column = (props) => {
     const column = props.column;
+    const onCardDrop = props.onCardDrop;
+
     const cards = mapOrder(column.cards, column.cardOrder, 'id');
 
-    const onCardDrop = (columnId, err) => {
-        console.log('>>> Column ID: ', columnId, ' error: ', err);
-    }
     return (
         <div className='board-col'>
             <header className='column-drag-handle'>{column.title}</header>
@@ -20,7 +19,7 @@ const Column = (props) => {
                     //Nếu không có thẻ này sẽ không thể kéo thả sang các cột khác vì không có chung 1 group name
                     orientation='vertical' // default
                     groupName="todo-columns"
-                    onDrop={(e) => onCardDrop(column.id, e)}
+                    onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
                     getChildPayload={index => cards[index]}
                     dragClass="card-ghost"
                     dropClass="card-ghost-drop"

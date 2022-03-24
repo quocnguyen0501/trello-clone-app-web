@@ -1,0 +1,9 @@
+Hàm splice trong JS:
+    - Xoá và thêm mới vào vị trí đã xoá trong array
+
+    splice(vị trí bắt đầu xoá, số phần tử xoá, giá trị phần tử thêm vào vị trí xoá(phải bằng số phần tử xoá))
+
+    var arr1 = [1,5,8,9];
+    arr1.splice(1,2,'Hi','Medium');
+    console.log(arr1);
+    ---------> [ 1, 'Hi', 'Medium', 9 ]

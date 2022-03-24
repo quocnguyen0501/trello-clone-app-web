@@ -2,9 +2,10 @@ export const initialData = {
     boards: [
         {
             id: 'board-1',
+            // List id of columns
             columnOrder: [
-                'column-2',
                 'column-1',
+                'column-2',
                 'column-3'
             ],
             columns: [
@@ -149,7 +150,7 @@ export const initialData = {
                         {
                             id: 'card-15',
                             boardId: 'board-1',
-                            columnId: 'column-4',
+                            columnId: 'column-3',
                             title: 'Title of card 15',
                             cover: null
                         }
