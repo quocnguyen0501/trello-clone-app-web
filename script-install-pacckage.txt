@@ -27,3 +27,9 @@ install react-smooth-dnd:
         yarn add react-smooth-dnd --save
     use npm:
         npm i react-smooth-dnd --save
+
+install Font Awesome v4.7.0:
+    use yarn:
+        yarn add font-awesome --save
+    use npm:
+        npm i font-awesome --save
