@@ -70,7 +70,7 @@ export const initialData = {
                             columnId: 'column-1',
                             title: 'Title of card 7',
                             cover: null
-                        },
+                        }
                     ]
                 },
                 {
@@ -82,7 +82,7 @@ export const initialData = {
                         'card-9',
                         'card-10',
                         'card-11',
-                        'card-12',
+                        'card-12'
                     ],
                     cards: [
                         {
@@ -129,7 +129,7 @@ export const initialData = {
                     cardOrder: [
                         'card-13',
                         'card-14',
-                        'card-15',
+                        'card-15'
                     ],
                     cards: [
                         {

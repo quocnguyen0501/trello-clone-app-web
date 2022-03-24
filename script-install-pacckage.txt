@@ -1,11 +1,29 @@
 install SASS:
     use npm:
-    npm i node-sass --save
+        npm i node-sass --save
     or use yarn:
-    yarn add node-sass --save
+        yarn add node-sass --save
 
 instal lodash:
     use npm:
-    npm i lodash --save
+        npm i lodash --save
     use yarn:
-    yarn add lodash --save
+        yarn add lodash --save
+
+install ESLint:
+    use yarn:
+        yarn add eslint --save-dev
+        yarn add eslint-plugin-react --save-dev
+        yarn add eslint-plugin-react-hooks --dev
+    use npm:
+        npm i eslint --save-dev
+        npm i eslint-plugin-react --save-dev
+        npm i eslint-plugin-react-hooks --dev
+
+    Sau đó cấu hình 2 file .eslintignore .eslintrc.json
+
+install react-smooth-dnd:
+    use yarn: 
+        yarn add react-smooth-dnd --save
+    use npm:
+        npm i react-smooth-dnd --save

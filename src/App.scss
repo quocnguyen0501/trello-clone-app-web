@@ -9,14 +9,15 @@ body {
 
 .app-master {
     height: 100vh;
-    display: grid;
-    /*
-        gird layout theo rows
-        row 1: nav bar 40px
-        row 2: board bar 50px
-        row 3: phan con lai la 1 frame khung hinh
-    */
-    grid-template-rows: 40px 50px 1fr;
-    line-height: 1.3em;
+    overflow: hidden;
+    // display: grid;
+    // /*
+    //     gird layout theo rows
+    //     row 1: nav bar 40px
+    //     row 2: board bar 50px
+    //     row 3: phan con lai la 1 frame khung hinh
+    // */
+    // grid-template-rows: 40px 50px 1fr;
+    // line-height: 1.3em;
     background-color: $board-bg-color;
 }

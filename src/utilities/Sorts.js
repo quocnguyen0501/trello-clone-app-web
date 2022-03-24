@@ -8,8 +8,8 @@
         result>0: b trước a.
        result =0 (kệ cmnđ).
     Thật ra sự khác nhau là ở chỗ:
-     result=a-b hay 
-     result = b-a; 
+     result=a-b hay
+     result = b-a;
      chứ 3đk trên kia chỉ để xét khi chúng ta đã có result cụ thể.
 */
 
