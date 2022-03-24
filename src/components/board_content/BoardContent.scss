@@ -6,6 +6,10 @@
     // Thanh cuộn
     overflow-x: auto;
     overflow-y: hidden;
+    &::after {
+        content: '';
+        flex: 0 0 $gap;
+    }
 
     .column-drop-preview {
         background-color: rgba(150, 150, 200, 0.1);
@@ -15,12 +19,13 @@
 
     .add-new-column {
         width: 250px;
-        height: 32px;
+        max-width: 250px;
         line-height: 32px;
         padding: 4px 0 4px 15px;
         cursor: pointer;
         margin-left: $gap;
         font-size: 15px;
+        color: #ffffff;
         background-color: hsla(0, 0%, 100%, .24);
         border-radius: $column-border-radius;
 

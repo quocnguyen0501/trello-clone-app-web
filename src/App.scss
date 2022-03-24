@@ -1,3 +1,4 @@
+@import '~bootstrap/scss/bootstrap';
 @import '_setting.scss';
 
 body {
@@ -24,5 +25,9 @@ body {
     .icon {
         font-size: 14px;
         margin-right: 3px;
+    }
+    .trello-container {
+        margin: 0 15px;
+        padding: 0;
     }
 }

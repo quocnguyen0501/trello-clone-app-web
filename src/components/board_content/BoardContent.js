@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash'
 import { Container, Draggable } from 'react-smooth-dnd'
+import { Container as BootstrapContainer, Col, Row } from 'react-bootstrap'
 
 import { initialData } from 'actions/InitialData'
 import Column from 'components/column/Column'
@@ -84,12 +85,16 @@ const BoardContent = () => {
                     </Draggable>
                 ))}
             </Container>
-            <div className='add-new-column'>
-                <i className='fa fa-plus icon' />
-                <span>
-                    Add another column
-                </span>
-            </div>
+            <BootstrapContainer className='trello-container'>
+                <Row>
+                    <Col className='add-new-column'>
+                        <i className='fa fa-plus icon' />
+                        <span>
+                            Add another column
+                        </span>
+                    </Col>
+                </Row>
+            </BootstrapContainer>
         </div>
     )
 }
