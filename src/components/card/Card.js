@@ -8,7 +8,7 @@ const Task = (props) => {
                 <img className='card-cover'
                     src={card.cover}
                     alt='quocnguyen-alt-img'
-                    // Xử lý khi ấn chuột xuống 
+                    // Xử lý khi ấn chuột xuống
                     onMouseDown={e => e.preventDefault()}
                 />
             }
