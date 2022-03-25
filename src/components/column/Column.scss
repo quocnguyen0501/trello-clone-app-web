@@ -18,14 +18,62 @@ $column-height: cals(#{$board-content-heigh} - #{$gap * 2});
     }
 
     header.column-drag-handle {
-        padding-left: 15px;
-        height: 36px;
+        display: flex;
+        padding: 5px 8px !important;
+        height: 45px;
         line-height: $column-header-height;
         font-size: 16px;
         font-weight: bold;
         border-top-left-radius: $column-border-radius;
         border-top-right-radius: $column-border-radius;
         cursor: pointer;
+
+        .column-title {
+            flex: 90%;
+        }
+
+        .column-dropdown-actions {
+            flex: 10%;
+            margin-left: 5px;
+
+            .dropdown {
+                button.dropdown-btn {
+                    padding: 0 $gap;
+                    font-size: 16px;
+                    height: 32px;
+                    margin-top: -10px;
+                    font-weight: bold;
+                    letter-spacing: 1px;
+                    background-color: $column-bg-color;
+                    border-color: transparent;
+
+                    &::after {
+                        content: '...';
+                        color: $app-main-text-color;
+                        border: none;
+                    }
+
+                    &:hover {
+                        background-color: darken($color: $column-bg-color, $amount: 10);
+                    }
+                }
+            }
+
+            .dropdown-menu {
+                padding: 0;
+                min-width: 270px;
+
+                a.dropdown-item {
+                    padding: 0.1rem 1rem;
+                    font-size: 14px;
+                }
+            }
+
+            .header-dropdown {
+                width: 100%;
+                text-align: center;
+            }
+        }
     }
 
     footer {
@@ -36,9 +84,11 @@ $column-height: cals(#{$board-content-heigh} - #{$gap * 2});
         border-bottom-left-radius: $column-border-radius;
         border-bottom-right-radius: $column-border-radius;
         color: #888;
+
         .footer-actions {
             margin-left: 0px;
             cursor: pointer;
+
             &:hover {
                 color: $app-main-text-color;
             }

@@ -112,6 +112,29 @@ const BoardContent = () => {
         }
     }
 
+    const onUpdateColumn = (newColumnToUpdate) => {
+        const columnIdToUpdate = newColumnInputRef.id;
+
+        let newColumns = [...columns];
+        const columnIndexToUpdate = newColumns.findIndex((i) => i.id === columnIdToUpdate)
+
+        if (newColumnToUpdate._destroy) {
+            // remove column
+            newColumns.splice(columnIndexToUpdate, 1);
+        } else {
+            // update column info
+            newColumns.splice(columnIndexToUpdate, 1, newColumnToUpdate);
+        }
+
+        // update board
+        let newBoard = { ...board };
+        newBoard.columnOrder = newColumns.map(col => col.id);
+        newBoard.columns = newColumns;
+
+        setColumns(newColumns);
+        setBoard(newBoard);
+    }
+
     const handleNewColumnTitleChange = (event) => {
         setNewColumnTitle(event.target.value)
     }
@@ -133,6 +156,7 @@ const BoardContent = () => {
                     <Draggable key={index}>
                         <Column column={column}
                             onCardDrop={onCardDrop}
+                            onUpdateColumn={onUpdateColumn}
                         />
                     </Draggable>
                 ))}
@@ -158,7 +182,8 @@ const BoardContent = () => {
                                 ref={newColumnInputRef}
                                 value={newColumnTitle}
                                 onChange={(event) => handleNewColumnTitleChange(event)}
-                                onKeyDown={(event) => (event.key === 'Enter') && addNewColumn()} />
+                                onKeyDown={(event) => (event.key === 'Enter') && addNewColumn()}
+                            />
                             <Button size='sm'
                                 variant="success"
                                 onClick={addNewColumn}>

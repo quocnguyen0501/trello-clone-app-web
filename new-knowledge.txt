@@ -7,3 +7,10 @@ Hàm splice trong JS:
     arr1.splice(1,2,'Hi','Medium');
     console.log(arr1);
     ---------> [ 1, 'Hi', 'Medium', 9 ]
+
+    // xu ly su kien khi click ra ngoai o input
+    onBlur={() => handleColumnTitleBlur()}
+    // Xu ly su kien khi nhan enter
+    onKeyDown={saveContentAfterPressEnter} -> sau do check bang event.key?
+    / Xu ly su kien nhan chuot
+    onMouseDown={(event) => //logic function...}
