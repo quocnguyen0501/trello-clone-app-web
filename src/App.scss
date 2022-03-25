@@ -47,6 +47,7 @@ body {
     [type=tel].form-control:focus,
     [contenteditable].form-control:focus {
         box-shadow: none;
+        border: 1px solid $input-border-color;
     }
 
     .btn:focus, .btn:active{
@@ -62,7 +63,9 @@ body {
         cursor: pointer;
         &:focus {
             background-color: white;
-            border: 1px solid $input-border-color;
         }
+    }
+    span.cancle-icon {
+        cursor: pointer;
     }
 }

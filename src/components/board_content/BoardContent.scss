@@ -49,17 +49,6 @@
                 border-color: $input-border-color;
             }
         }
-        span.cancle-new-col {
-            cursor: pointer;
-            i {
-                font-size: 24px;
-                color: $alert-danger;
-                font-weight: bold;
-                &:hover {
-                    color: darken($color: $alert-danger, $amount: 10);
-                }
-            }
-        }
     }
 
     &::-webkit-scrollbar {

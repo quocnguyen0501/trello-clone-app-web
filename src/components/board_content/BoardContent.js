@@ -19,10 +19,19 @@ import './BoardContent.scss'
 const BoardContent = () => {
     const [board, setBoard] = useState({});
     const [columns, setColumns] = useState([]);
+
     const [openNewComlumnForm, setOpenNewColumnForm] = useState(false);
+    const toggleOpenAddNewColumnForm = () => {
+        setOpenNewColumnForm(!openNewComlumnForm);
+    }
+
+    const newColumnInputRef = useRef(null);
+
     const [newColumnTitle, setNewColumnTitle] = useState('');
 
-    const newColumnInputRef = useRef(null)
+    const handleNewColumnTitleChange = (event) => {
+        setNewColumnTitle(event.target.value)
+    }
 
     useEffect(() => {
         const boardFromDB = initialData.boards.find(board => board.id === 'board-1');
@@ -83,10 +92,6 @@ const BoardContent = () => {
         }
     }
 
-    const toggleOpenAddNewColumnForm = () => {
-        setOpenNewColumnForm(!openNewComlumnForm);
-    }
-
     const addNewColumn = () => {
         if (!newColumnTitle) {
             newColumnInputRef.current.focus();
@@ -116,8 +121,7 @@ const BoardContent = () => {
         const columnIdToUpdate = newColumnToUpdate.id;
 
         let newColumns = [...columns];
-        const columnIndexToUpdate = newColumns.findIndex((i) => i.id === columnIdToUpdate)
-        console.log(columnIdToUpdate);
+        const columnIndexToUpdate = newColumns.findIndex((i) => i.id === columnIdToUpdate);
 
         if (newColumnToUpdate._destroy) {
             // remove column
@@ -134,10 +138,6 @@ const BoardContent = () => {
 
         setColumns(newColumns);
         setBoard(newBoard);
-    }
-
-    const handleNewColumnTitleChange = (event) => {
-        setNewColumnTitle(event.target.value)
     }
 
     return (
@@ -190,7 +190,7 @@ const BoardContent = () => {
                                 onClick={addNewColumn}>
                                 Add column
                             </Button>
-                            <span className='cancle-new-col'
+                            <span className='cancle-icon'
                                 onClick={toggleOpenAddNewColumnForm}>
                                 <svg width="40" height="40" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M 300 287C 303 287 306 289 309 291C 309 291 500 482 500 482C 500 482 691 291 691 291C 693 289 697 287 700 287C 705 287 710 290 712 295C 714 300 713 305 709 309C 709 309 518 500 518 500C 518 500 709 691 709 691C 712 694 713 699 712 703C 711 708 708 711 703 712C 699 713 694 712 691 709C 691 709 500 518 500 518C 500 518 309 709 309 709C 306 712 301 713 297 712C 292 711 289 708 288 703C 287 699 288 694 291 691C 291 691 482 500 482 500C 482 500 291 309 291 309C 288 305 286 300 288 295C 290 290 295 287 300 287C 300 287 300 287 300 287" /></svg>
                             </span>
