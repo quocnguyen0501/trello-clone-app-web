@@ -11,6 +11,8 @@ $board-content-heigh: 90.5vh;
 $board-bg-color: #0079bf;
 $common-element-bg: rgba(255, 255, 255, .24);
 $app-main-text-color: #333;
+$column-bg-color: #ebecf0;
+$alert-danger: #ee5253;
 
 //Screen size responsive
 $screen-lg: 1201px;
@@ -19,4 +21,4 @@ $screen-sm: 768px;
 $screen-phone: 480px;
 $screen-ip6-down: '(max-width: 375px)';
 
-$column-border-radius: 7px;
+$column-border-radius: 4px;

@@ -34,6 +34,30 @@
             font-weight: bold;
         }
     }
+    .enter-new-column {
+        width: 250px;
+        max-width: 250px;
+        background-color: $column-bg-color;
+        line-height: 32px;
+        padding: 4px 10px;
+        margin-left: $gap;
+        border-radius: $column-border-radius;
+
+        .input-enter-new-column{
+            margin: 5px 0;
+        }
+        span.cancle-new-col {
+            cursor: pointer;
+            i {
+                font-size: 24px;
+                color: $alert-danger;
+                font-weight: bold;
+                &:hover {
+                    color: darken($color: $alert-danger, $amount: 10);
+                }
+            }
+        }
+    }
 
     &::-webkit-scrollbar {
         -webkit-appearance: none;
