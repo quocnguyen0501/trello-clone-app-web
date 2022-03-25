@@ -33,3 +33,9 @@ install Font Awesome v4.7.0:
         yarn add font-awesome --save
     use npm:
         npm i font-awesome --save
+
+install html-react-parser:
+    use yarn:
+        yarn add html-react-parser --save
+    use npm:
+        npm i html-react-parser --save
