@@ -113,10 +113,11 @@ const BoardContent = () => {
     }
 
     const onUpdateColumn = (newColumnToUpdate) => {
-        const columnIdToUpdate = newColumnInputRef.id;
+        const columnIdToUpdate = newColumnToUpdate.id;
 
         let newColumns = [...columns];
         const columnIndexToUpdate = newColumns.findIndex((i) => i.id === columnIdToUpdate)
+        console.log(columnIdToUpdate);
 
         if (newColumnToUpdate._destroy) {
             // remove column
