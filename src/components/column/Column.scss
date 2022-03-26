@@ -3,7 +3,7 @@
 $column-header-height: 36px;
 $column-footer-height: 36px;
 
-$column-height: cals(#{$board-content-heigh} - #{$gap * 2});
+$column-height: calc(#{$board-content-heigh} - #{$gap * 2});
 
 .board-col {
     flex: 0 0 auto;
@@ -116,6 +116,15 @@ $column-height: cals(#{$board-content-heigh} - #{$gap * 2});
             background-color: rgba(150, 150, 200, 0.1);
             border: 1px dashed #abc;
             margin: 5px;
+        }
+
+        .add-new-card-area {
+
+            .textarea-enter-new-card{
+                min-height: 54px;
+                max-height: 162px;
+                margin-top: $gap;
+            }
         }
 
         &::-webkit-scrollbar {
