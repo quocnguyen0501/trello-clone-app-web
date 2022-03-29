@@ -9,4 +9,137 @@ $app-bar-bg-color: #0067a3;
     align-items: center;
     background-color: $app-bar-bg-color;
     font-size: 1.5rem;
+    color: aliceblue;
+
+    .trello-container {
+        max-width: 100%;
+
+        .app-actions {
+            display: inline-flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+
+            div.item {
+                padding: 6px 10px;
+                background-color: rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+
+                &:not(:first-child) {
+                    margin-left: 4px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 255, 255, 0.4);
+                }
+
+                &.all {
+                    i {
+                        font-size: 18px;
+                    }
+                }
+
+                &.home {
+                    i {
+                        font-size: 18px;
+                    }
+                }
+
+                &.boards {
+                    font-size: 15px;
+                    font-weight: bold;
+                    i {
+                        font-size: 18px;
+                    }
+                }
+
+                &.search {
+                    padding: 6px 0;
+
+                    .group-search {
+                        height: 19px;
+
+                        .input-search {
+                            max-height: 100%;
+                            background-color: inherit;
+                            color: none;
+                            border: none;
+                            font-size: 14px;
+
+                            &::placeholder {
+                                color: darken($color: aliceblue, $amount: 5);
+                                opacity: 1;
+                            }
+                        }
+
+                        .input-icon-search {
+                            padding: 0 8px 0 0;
+                            background-color: transparent;
+                            border: none;
+                            color: inherit;
+                        }
+                    }
+                }
+            }
+        }
+        .app-brading {
+            cursor: pointer;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+                &:hover {
+                    color: lighten($color: aliceblue, $amount: 10);
+                }
+                img.top-logo {
+                    width: 30px;
+                }
+                span.trello-slogan {
+                    font-size: 15px;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                }
+            }
+        }
+        .user-actions {
+            display: inline-flex;
+            height: 100%;
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            div.item {
+                i {
+                    font-size: 18px;
+                }
+                padding: 6px 10px;
+                background-color: rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+                &:not(:first-child){
+                    margin-left: 4px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    background-color: rgba(255, 255, 255, 0.4);
+                }
+                &.user-avatar {
+                    padding: 0;
+                    background-color: transparent;
+                    img {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        &:hover {
+                            filter: brightness(120%);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
