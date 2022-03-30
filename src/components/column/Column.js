@@ -12,11 +12,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import { MODAL_ACTION_CONFIRM } from 'utilities/Constants';
 import { selectAllInlineText, saveContentAfterPressEnter } from 'utilities/ContentEditable';
+import { createNewCard, updateColumn } from 'actions/APIs';
 
 const Column = (props) => {
     const column = props.column;
     const onCardDrop = props.onCardDrop;
-    const onUpdateColumn = props.onUpdateColumn;
+    const onUpdateColumnState = props.onUpdateColumnState;
 
     const [showConfirmModal, setShowConfirmModal] = useState(false);
     const toggleShowConfirmModal = () => (setShowConfirmModal(!showConfirmModal));
@@ -51,13 +52,44 @@ const Column = (props) => {
 
     const cards = mapOrder(column.cards, column.cardOrder, '_id');
 
+    // Update column title
+    const handleColumnTitleBlur = () => {
+
+        /**
+         * @column.title: title of column from props
+         * @columnTitle: title of column from state
+         */
+        console.log(column.title);
+        console.log(columnTitle);
+
+        if (column.title !== columnTitle) {
+            const newColumn = {
+                ...column,
+                title: columnTitle
+            }
+
+            // Call API update column
+            updateColumn(newColumn._id, newColumn)
+                .then((updatedColumn) => {
+                    updatedColumn.cards = newColumn.cards
+                    onUpdateColumnState(updatedColumn);
+                })
+        }
+    }
+
+    // Remove column
     const onConfirmModalAction = (action) => {
         if (action === MODAL_ACTION_CONFIRM) {
             const newColumn = {
                 ...column,
                 _destroy: true
             }
-            onUpdateColumn(newColumn);
+
+            // Call API update column
+            updateColumn(newColumn._id, newColumn)
+                .then((updatedColumn) => {
+                    onUpdateColumnState(updatedColumn);
+                })
         }
         toggleShowConfirmModal();
     }
@@ -66,34 +98,26 @@ const Column = (props) => {
         setColumnTitle(event.target.value)
     }
 
-    const handleColumnTitleBlur = () => {
-        const newColumn = {
-            ...column,
-            title: columnTitle
-        }
-        onUpdateColumn(newColumn);
-    }
-
     const addNewCard = () => {
         if (!newCardTitle) {
             newCardTextareaRef.current.focus();
         } else {
             const newCardToAdd = {
-                id: Math.random().toString(36).substring(2, 5),
                 boardId: column.boardId,
                 columnId: column._id,
-                title: newCardTitle.trim(),
-                cover: null
+                title: newCardTitle.trim()
             }
+            createNewCard(newCardToAdd)
+                .then((card) => {
+                    let newColumn = cloneDeep(column)
+                    newColumn.cards.push(card);
+                    newColumn.cardOrder.push(card._id);
 
-            let newColumn = cloneDeep(column)
-            newColumn.cards.push(newCardToAdd);
-            newColumn.cardOrder.push(newCardToAdd._id);
+                    onUpdateColumnState(newColumn);
 
-            onUpdateColumn(newColumn);
-
-            setNewCardTitle('');
-            toggleOpenAddNewCardForm();
+                    setNewCardTitle('');
+                    toggleOpenAddNewCardForm();
+                })
         }
     }
 

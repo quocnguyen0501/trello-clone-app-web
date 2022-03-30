@@ -14,3 +14,5 @@ Hàm splice trong JS:
     onKeyDown={saveContentAfterPressEnter} -> sau do check bang event.key?
     / Xu ly su kien nhan chuot
     onMouseDown={(event) => //logic function...}
+
+LƯU Ý DEBUG LỖI KHI GHÉP API (LỖI 500) -> XỬ LÝ Ở SERVER

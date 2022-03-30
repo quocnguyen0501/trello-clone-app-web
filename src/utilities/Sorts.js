@@ -14,6 +14,8 @@
 */
 
 export const mapOrder = (array, order, key) => {
+    if (!array || !order || !key) return [];
+
     array.sort((a, b) => {
         // CHECK:
         // console.log(a.key);
