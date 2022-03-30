@@ -9,7 +9,7 @@ import {
     Button
 } from 'react-bootstrap'
 
-import { fetchBoardDetail } from 'actions/APIs'
+import { createNewColumn, fetchBoardDetail } from 'actions/APIs'
 import Column from 'components/column/Column'
 import { mapOrder } from 'utilities/Sorts'
 import { applyDrag } from 'utilities/DragDrop'
@@ -97,27 +97,27 @@ const BoardContent = () => {
             newColumnInputRef.current.focus();
         } else {
             const newColumnToAdd = {
-                id: Math.random().toString(36).substring(2, 5),
                 boardId: board._id,
-                title: newColumnTitle.trim(),
-                cardOrder: [],
-                cards: []
+                title: newColumnTitle.trim()
             }
 
-            let newColumns = [...columns, newColumnToAdd];
+            createNewColumn(newColumnToAdd)
+                .then((column) => {
+                    let newColumns = [...columns, column];
 
-            let newBoard = { ...board };
-            newBoard.columnOrder = newColumns.map(col => col._id);
-            newBoard.columns = newColumns;
+                    let newBoard = { ...board };
+                    newBoard.columnOrder = newColumns.map(col => col._id);
+                    newBoard.columns = newColumns;
 
-            setColumns(newColumns);
-            setBoard(newBoard);
-            setNewColumnTitle('');
-            toggleOpenAddNewColumnForm();
+                    setColumns(newColumns);
+                    setBoard(newBoard);
+                    setNewColumnTitle('');
+                    toggleOpenAddNewColumnForm();
+                })
         }
     }
 
-    const onUpdateColumn = (newColumnToUpdate) => {
+    const onUpdateColumnState = (newColumnToUpdate) => {
         const columnIdToUpdate = newColumnToUpdate._id;
 
         let newColumns = [...columns];
@@ -157,7 +157,7 @@ const BoardContent = () => {
                     <Draggable key={index}>
                         <Column column={column}
                             onCardDrop={onCardDrop}
-                            onUpdateColumn={onUpdateColumn}
+                            onUpdateColumnState={onUpdateColumnState}
                         />
                     </Draggable>
                 ))}
