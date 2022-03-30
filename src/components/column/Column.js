@@ -49,7 +49,7 @@ const Column = (props) => {
         }
     }, [openNewCardForm])
 
-    const cards = mapOrder(column.cards, column.cardOrder, 'id');
+    const cards = mapOrder(column.cards, column.cardOrder, '_id');
 
     const onConfirmModalAction = (action) => {
         if (action === MODAL_ACTION_CONFIRM) {
@@ -81,14 +81,14 @@ const Column = (props) => {
             const newCardToAdd = {
                 id: Math.random().toString(36).substring(2, 5),
                 boardId: column.boardId,
-                columnId: column.id,
+                columnId: column._id,
                 title: newCardTitle.trim(),
                 cover: null
             }
 
             let newColumn = cloneDeep(column)
             newColumn.cards.push(newCardToAdd);
-            newColumn.cardOrder.push(newCardToAdd.id);
+            newColumn.cardOrder.push(newCardToAdd._id);
 
             onUpdateColumn(newColumn);
 
@@ -149,7 +149,7 @@ const Column = (props) => {
                     //Nếu không có thẻ này sẽ không thể kéo thả sang các cột khác vì không có chung 1 group name
                     orientation='vertical' // default
                     groupName="todo-columns"
-                    onDrop={(dropResult) => onCardDrop(column.id, dropResult)}
+                    onDrop={(dropResult) => onCardDrop(column._id, dropResult)}
                     getChildPayload={index => cards[index]}
                     dragClass="card-ghost"
                     dropClass="card-ghost-drop"
