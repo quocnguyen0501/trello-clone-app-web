@@ -39,3 +39,9 @@ install html-react-parser:
         yarn add html-react-parser --save
     use npm:
         npm i html-react-parser --save
+
+install axios de call APIs:
+    yarn add axios --save
+
+install CORS:
+    yarn add cors

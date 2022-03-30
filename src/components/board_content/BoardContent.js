@@ -9,7 +9,7 @@ import {
     Button
 } from 'react-bootstrap'
 
-import { initialData } from 'actions/InitialData'
+import { fetchBoardDetail } from 'actions/APIs'
 import Column from 'components/column/Column'
 import { mapOrder } from 'utilities/Sorts'
 import { applyDrag } from 'utilities/DragDrop'
@@ -34,17 +34,17 @@ const BoardContent = () => {
     }
 
     useEffect(() => {
-        const boardFromDB = initialData.boards.find(board => board.id === 'board-1');
+        const boardId = '6241795b98044585b51fe6b4'
+        fetchBoardDetail(boardId)
+            .then((boardFromDB) => {
+                setBoard(boardFromDB)
 
-        if (boardFromDB) {
-            setBoard(boardFromDB)
-
-            // Sort Column ----> mapOrder
-            // boardFromDB.columns.sort((a, b) => {
-            //     return boardFromDB.columnOrder.indexOf(a.id) - boardFromDB.columnOrder.indexOf(b.id);
-            // })
-            setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, 'id'))
-        }
+                // Sort Column ----> mapOrder
+                // boardFromDB.columns.sort((a, b) => {
+                //     return boardFromDB.columnOrder.indexOf(a._id) - boardFromDB.columnOrder.indexOf(b._id);
+                // })
+                setColumns(mapOrder(boardFromDB.columns, boardFromDB.columnOrder, '_id'))
+            });
     }, []);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const BoardContent = () => {
         newColumns = applyDrag(newColumns, dropResult);
 
         let newBoard = { ...board };
-        newBoard.columnOrder = newColumns.map(col => col.id);
+        newBoard.columnOrder = newColumns.map(col => col._id);
         newBoard.columns = newColumns;
 
         setBoard(newBoard);
@@ -83,10 +83,10 @@ const BoardContent = () => {
             console.log('NEW COLS BEFORE:', newColumns);
 
             // Tìm cột có id đã xảy ra sự thay đổi
-            let columnHasChangeOccurred = newColumns.find((col) => col.id === columnId);
+            let columnHasChangeOccurred = newColumns.find((col) => col._id === columnId);
 
             columnHasChangeOccurred.cards = applyDrag(columnHasChangeOccurred.cards, dropResult);
-            columnHasChangeOccurred.cardOrder = columnHasChangeOccurred.cards.map(card => { return card.id })
+            columnHasChangeOccurred.cardOrder = columnHasChangeOccurred.cards.map(card => { return card._id })
 
             setColumns(newColumns);
         }
@@ -98,7 +98,7 @@ const BoardContent = () => {
         } else {
             const newColumnToAdd = {
                 id: Math.random().toString(36).substring(2, 5),
-                boardId: board.id,
+                boardId: board._id,
                 title: newColumnTitle.trim(),
                 cardOrder: [],
                 cards: []
@@ -107,7 +107,7 @@ const BoardContent = () => {
             let newColumns = [...columns, newColumnToAdd];
 
             let newBoard = { ...board };
-            newBoard.columnOrder = newColumns.map(col => col.id);
+            newBoard.columnOrder = newColumns.map(col => col._id);
             newBoard.columns = newColumns;
 
             setColumns(newColumns);
@@ -118,10 +118,10 @@ const BoardContent = () => {
     }
 
     const onUpdateColumn = (newColumnToUpdate) => {
-        const columnIdToUpdate = newColumnToUpdate.id;
+        const columnIdToUpdate = newColumnToUpdate._id;
 
         let newColumns = [...columns];
-        const columnIndexToUpdate = newColumns.findIndex((i) => i.id === columnIdToUpdate);
+        const columnIndexToUpdate = newColumns.findIndex((i) => i._id === columnIdToUpdate);
 
         if (newColumnToUpdate._destroy) {
             // remove column
@@ -133,7 +133,7 @@ const BoardContent = () => {
 
         // update board
         let newBoard = { ...board };
-        newBoard.columnOrder = newColumns.map(col => col.id);
+        newBoard.columnOrder = newColumns.map(col => col._id);
         newBoard.columns = newColumns;
 
         setColumns(newColumns);
