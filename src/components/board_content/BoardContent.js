@@ -9,12 +9,13 @@ import {
     Button
 } from 'react-bootstrap'
 
-import { createNewColumn, fetchBoardDetail } from 'actions/APIs'
+import { createNewColumn, fetchBoardDetail, updateBoard, updateCard, updateColumn } from 'actions/APIs'
 import Column from 'components/column/Column'
 import { mapOrder } from 'utilities/Sorts'
 import { applyDrag } from 'utilities/DragDrop'
 
 import './BoardContent.scss'
+import cloneDeep from 'lodash/cloneDeep'
 
 const BoardContent = () => {
     const [board, setBoard] = useState({});
@@ -64,31 +65,90 @@ const BoardContent = () => {
         );
     }
 
+    // Update Board
+    /**
+     *
+     * @param {parameter of smooth dnd} dropResult : return index of item addIndex and remove index
+     */
     const onColumnDrop = (dropResult) => {
-        let newColumns = [...columns];
-        newColumns = applyDrag(newColumns, dropResult);
+        /**
+         * @param {field of dropResult} addedIndex : the new index after change when drag drop
+         * @param {field of dropResult} removedIndex : the old index after change when drag drop
+         */
+        const addedIndex = dropResult.addedIndex;
+        const removedIndex = dropResult.removedIndex;
 
-        let newBoard = { ...board };
-        newBoard.columnOrder = newColumns.map(col => col._id);
-        newBoard.columns = newColumns;
+        // Check if have a new change -> call API
+        if (addedIndex !== removedIndex) {
+            let newColumns = cloneDeep(columns);
 
-        setBoard(newBoard);
-        setColumns(newColumns);
+            // handle swap 2 columns
+            newColumns = applyDrag(newColumns, dropResult);
+
+            let newBoard = cloneDeep(board);
+            newBoard.columnOrder = newColumns.map(col => col._id);
+            newBoard.columns = newColumns;
+
+            // when deploy in real server have waste time -> lag
+            // set Board and Column before call API the UI will smooth
+            setBoard(newBoard);
+            setColumns(newColumns);
+
+            // Call API update columnOrder in BoardDetail
+            updateBoard(newBoard._id, newBoard)
+                // If when call APIs have error -> log error
+                .catch((error) => {
+                    // make a popup
+                    console.log(error.message);
+
+                    setBoard(board);
+                    setColumns(columns);
+                })
+        }
     }
 
     const onCardDrop = (columnId, dropResult) => {
+        /**
+         * @param {field of dropResult} addedIndex : the new index after change when drag drop
+         * @param {field of dropResult} removedIndex : the old index after change when drag drop
+         */
+        const addedIndex = dropResult.addedIndex;
+        const removedIndex = dropResult.removedIndex;
+
         // Điều kiện để xử lý các cols có sự thay đổi
-        if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-            let newColumns = [...columns];
-            console.log('NEW COLS BEFORE:', newColumns);
+        if (addedIndex !== removedIndex) {
+            if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
+                let newColumns = cloneDeep(columns);
 
-            // Tìm cột có id đã xảy ra sự thay đổi
-            let columnHasChangeOccurred = newColumns.find((col) => col._id === columnId);
+                // Tìm cột có id đã xảy ra sự thay đổi
+                let columnHasChangeOccurred = newColumns.find((col) => col._id === columnId);
 
-            columnHasChangeOccurred.cards = applyDrag(columnHasChangeOccurred.cards, dropResult);
-            columnHasChangeOccurred.cardOrder = columnHasChangeOccurred.cards.map(card => { return card._id })
+                columnHasChangeOccurred.cards = applyDrag(columnHasChangeOccurred.cards, dropResult);
+                columnHasChangeOccurred.cardOrder = columnHasChangeOccurred.cards.map(card => { return card._id });
 
-            setColumns(newColumns);
+                // Set column for smooth UI in screen client after that call API
+                setColumns(newColumns);
+
+                updateColumn(columnHasChangeOccurred._id, columnHasChangeOccurred)
+                    .catch((error) => {
+                        // If when call APIs have error -> log error
+                        console.log(error.message);
+                        setColumns(columns);
+                    })
+
+                // Actions: move card inside column
+                if (removedIndex === null || addedIndex === null) {
+                    if (dropResult.addedIndex !== null) {
+                        let cardDrop = cloneDeep(dropResult.payload);
+                        cardDrop.columnId = columnHasChangeOccurred._id;
+                        // Call API update columnId in column has change occurred
+                        updateCard(cardDrop._id, cardDrop)
+                            .catch((error) => {
+                                console.log(error.message);
+                            })
+                    }
+                }
+            }
         }
     }
 
